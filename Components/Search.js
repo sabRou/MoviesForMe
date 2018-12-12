@@ -15,6 +15,11 @@ class Search extends Component {
 
 }
 
+_displayDetailForFilm = (idFilm) => {
+  console.log("Display film " + idFilm)
+  this.props.navigation.navigate("FilmDetail", {idFilm : idFilm})
+}
+
 _searchFilms(){
   this.page = 0
 this.totalPages = 0
@@ -68,7 +73,7 @@ _displayLoading(){
         <FlatList
           data={this.state.films}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({item}) => <FilmItem film={item}/>}
+          renderItem={({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm}/>}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             if(this.state.films.length > 0 && this.page < this.totalPages) {
@@ -85,8 +90,7 @@ _displayLoading(){
 }
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1,
-    marginTop:20
+    flex: 1
   },
   text_input: {
     marginLeft: 5,
